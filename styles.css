@@ -1,0 +1,422 @@
+/* ===================================================================
+   Hashimoto Semi OB/OG Reunion — shared stylesheet
+   =================================================================== */
+
+:root{
+  --paper:      #FAF8F3;
+  --paper-2:    #F1ECE0;
+  --ink:        #16233F;
+  --ink-soft:   #5A6690;
+  --blue:       #2C4A7C;
+  --blue-deep:  #1B2E4F;
+  --blue-pale:  #E7ECF5;
+  --gold:       #B99C57;
+  --navy-deep:  #0E1A30;
+  --line:       #D8D2C2;
+  --radius:     3px;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.display{ font-family:'Shippori Mincho', serif; }
+.mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.04em; }
+
+/* @media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+} */
+
+a{ color:var(--blue-deep); }
+:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+
+.wrap{ max-width:760px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+
+/* ---------- top nav (rsvp page) ---------- */
+.topnav{
+  position:sticky; top:0; z-index:20;
+  background:rgba(250,248,243,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  padding:16px 24px;
+}
+.topnav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:0; }
+.topnav .brand{ font-family:'Shippori Mincho', serif; font-size:15px; color:var(--ink); text-decoration:none; }
+.topnav .back{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.1em; color:var(--blue-deep); text-decoration:none; }
+.topnav .back:hover{ text-decoration:underline; }
+
+/* ---------- flourish divider ---------- */
+.flourish{ display:flex; align-items:center; justify-content:center; gap:14px; margin:0 0 30px; }
+.flourish .stem{ height:1px; width:56px; background:linear-gradient(90deg, transparent, var(--gold)); }
+.flourish .stem.right{ background:linear-gradient(90deg, var(--gold), transparent); }
+.flourish svg{ opacity:.85; }
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:88vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:var(--navy-deep);
+}
+.hero-gallery{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 0;
+  z-index:0;
+}
+.hero-row{
+  display:flex; gap:14px;
+  will-change:transform;
+  width: max-content;
+}
+.hero-row img{
+  width:340px; height:220px;
+  object-fit:cover;
+  flex:none;
+  filter:grayscale(55%) brightness(0.9) contrast(1.05);
+  border-radius:var(--radius);
+}
+/* アニメーションの秒数と方向を設定 */
+.hero-row.row-a { 
+  animation: driftLeft 25s linear infinite; 
+}
+.hero-row.row-b { 
+  /* direction: reverse を使うことで、同じ0スタートでも「右から左」へ逆向きに流せます */
+  animation: driftLeft 25s linear infinite reverse; 
+}
+
+/* キーフレームはこれ1つに統一します！ */
+@keyframes driftLeft { 
+  from { transform: translateX(0); } 
+  to { transform: translateX(-50%); } 
+}
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(14,26,48,0.72) 0%, rgba(14,26,48,0.55) 40%, rgba(14,26,48,0.86) 100%),
+    linear-gradient(90deg, rgba(27,46,79,0.35), rgba(27,46,79,0.35));
+  z-index:1;
+}
+.hero-content{ position:relative; z-index:2; color:#F5F3EC; padding:0 24px; }
+.hero .eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:0.32em;
+  color:var(--gold);
+  margin-bottom:26px;
+  opacity:0; animation:rise .9s ease forwards .5s;
+}
+.eyebrow::before,.eyebrow::after{ content:""; width:28px; height:1px; background:var(--gold); opacity:.8; }
+.hero h1{
+  font-size:clamp(32px,6vw,54px);
+  line-height:1.3;
+  margin:0 0 20px;
+  font-weight:700;
+  opacity:0; animation:rise .9s ease forwards .10s;
+}
+.hero h1 .accent{ color:#C9D6EE; }
+.hero .sub{
+  font-size:14.5px;
+  letter-spacing:0.08em;
+  color:#C9D2E8;
+  opacity:0; animation:rise .9s ease forwards .5s;
+}
+.hero .hero-actions{
+  margin-top:44px;
+  opacity:0; animation:rise .9s ease forwards .7s;
+}
+@keyframes rise{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:translateY(0);} }
+
+.btn{
+  font-family:'Shippori Mincho', serif;
+  font-size:15px;
+  letter-spacing:0.08em;
+  padding:15px 42px;
+  border-radius:100px;
+  border:1px solid var(--gold);
+  color:#F5F3EC;
+  background:transparent;
+  text-decoration:none;
+  display:inline-block;
+  transition:background .2s ease, color .2s ease, transform .2s ease;
+}
+.btn:hover{ background:var(--gold); color:var(--navy-deep); transform:translateY(-1px); }
+.btn.solid{
+  background:var(--blue-deep);
+  border-color:var(--blue-deep);
+  color:#F5F3EC;
+}
+.btn.solid:hover{ background:var(--blue); border-color:var(--blue); color:#fff; }
+
+/* ---------- section shell ---------- */
+section{ position:relative; padding:76px 0; }
+.kicker{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:0.24em;
+  color:var(--gold);
+  display:block; text-align:center;
+  margin-bottom:10px;
+}
+h2{
+  font-family:'Shippori Mincho', serif;
+  font-size:clamp(22px,3.4vw,28px);
+  margin:0 0 6px;
+  text-align:center;
+}
+.section-lead{
+  text-align:center;
+  color:var(--ink-soft);
+  font-size:13.5px;
+  margin:0 0 40px;
+}
+
+/* ---------- letter ---------- */
+.letter{
+  background:var(--paper-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:44px 40px;
+  position:relative;
+}
+
+.letter color_blue{
+  color: blue;
+}
+
+.letter::before{
+  content:"";
+  position:absolute; left:0; top:30px; bottom:30px; width:3px;
+  background:linear-gradient(180deg, var(--gold), var(--blue));
+  opacity:0.7;
+}
+.letter p{ margin:0 0 18px; font-size:15.5px; color:var(--ink); }
+.letter p:last-child{ margin-bottom:0; }
+.letter .signoff{ color:var(--ink-soft); font-size:14px; margin-top:6px; font-style:italic; }
+
+/* ---------- moving memories gallery ---------- */
+.memories{ padding-left:0; padding-right:0; }
+.memories .wrap{ max-width:none; padding:0; }
+.memories .section-head{ max-width:760px; margin:0 auto 36px; padding:0 24px; }
+.film {
+  overflow-x: auto; 
+  padding: 14px 0;
+  width: 100%; /* 👈 画面幅にきっちり収めます */
+  box-sizing: border-box; /* 👈 paddingによるはみ出しを防ぎます */
+  
+  -webkit-overflow-scrolling: touch; 
+  scrollbar-width: none; 
+}
+.film::-webkit-scrollbar {
+  display: none; 
+}
+.film::-webkit-scrollbar {
+  display: none; /* Safari, Chrome用 */
+}
+
+.film-row {
+  display: flex; 
+  gap: 18px;
+  width: max-content;
+  /* 左右に余白を作って、最初と最後の写真が見切れるのを防ぎます */
+  padding: 0 24px; 
+}
+
+.film-row img {
+  width: 360px;   
+  height: 240px;  
+  object-fit: cover;
+  flex: none; /* 👈 写真が画面幅に潰されるのを防ぎ、360pxをキープします */
+  border-radius: var(--radius);
+  filter: grayscale(45%) contrast(1.03) brightness(0.96);
+  box-shadow: 0 10px 24px -14px rgba(14,26,48,0.4);
+}
+
+/* ---------- info list ---------- */
+.info-list{
+  border-top:1px solid var(--line);
+}
+.info-row{
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:18px;
+  padding:20px 4px;
+  border-bottom:1px solid var(--line);
+  align-items:baseline;
+}
+.info-row .k{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:0.14em;
+  color:var(--gold);
+}
+.info-row .v{ font-size:14.5px; }
+.info-row .v strong{ color:var(--blue-deep); }
+.info-note{
+  margin-top:20px;
+  padding:18px 20px;
+  background:var(--blue-pale);
+  border-radius:var(--radius);
+  font-size:13px;
+  color:var(--ink-soft);
+  display:flex; gap:10px; align-items:flex-start;
+}
+.info-note b{ color:var(--ink); }
+
+/* ---------- cta band ---------- */
+.cta-band{
+  text-align:center;
+  background:var(--navy-deep);
+  color:#F5F3EC;
+  padding:80px 24px;
+}
+.cta-band .display{ font-size:22px; margin-bottom:10px; }
+.cta-band p{ color:#B9C3DE; font-size:13.5px; margin:0 0 32px; }
+
+/* ---------- form (rsvp page) ---------- */
+.rsvp-hero{
+  text-align:center;
+  padding:70px 24px 20px;
+}
+.rsvp-hero .kicker{ margin-bottom:14px; }
+.rsvp-hero h1{
+  font-family:'Shippori Mincho', serif;
+  font-size:clamp(24px,4vw,32px);
+  margin:0 0 12px;
+}
+.rsvp-hero p{ color:var(--ink-soft); font-size:13.5px; }
+
+.form-card{
+  background:var(--paper-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:34px 32px;
+  margin-bottom:22px;
+}
+.form-card h3{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:0.18em;
+  color:var(--gold);
+  margin:0 0 4px;
+  text-transform:uppercase;
+}
+.form-card .step-title{
+  font-family:'Shippori Mincho', serif;
+  font-size:19px;
+  margin:2px 0 24px;
+}
+.field{ margin-bottom:22px; }
+.field:last-child{ margin-bottom:0; }
+.field label.q{
+  display:block; font-size:13.5px; font-weight:500;
+  margin-bottom:9px; color:var(--ink);
+}
+.field label.q .req{ color:var(--blue-deep); font-size:11px; margin-left:6px; font-family:'JetBrains Mono',monospace; }
+.field label.q .opt{ color:var(--ink-soft); font-size:11px; margin-left:6px; font-family:'JetBrains Mono',monospace; }
+.field input[type=text],
+.field input[type=number],
+.field textarea{
+  width:100%;
+  font-family:inherit;
+  font-size:14.5px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:var(--radius);
+  color:var(--ink);
+}
+.field textarea{ resize:vertical; min-height:84px; }
+.field input:focus, .field textarea:focus{ border-color:var(--blue); }
+.radio-group{ display:flex; flex-wrap:wrap; gap:10px; }
+.radio-group label{
+  display:flex; align-items:center; gap:7px;
+  font-size:13.5px;
+  padding:9px 15px;
+  border:1px solid var(--line);
+  border-radius:100px;
+  cursor:pointer;
+  background:var(--paper);
+  transition:border-color .15s, background .15s;
+}
+.radio-group input{ accent-color:var(--blue); }
+.radio-group label:has(input:checked){
+  border-color:var(--blue);
+  background:var(--blue-pale);
+  color:var(--blue-deep);
+}
+.sub-field{ margin-top:10px; display:none; }
+.sub-field.show{ display:block; }
+
+.file-drop{
+  border:1px dashed var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+  text-align:center;
+  background:var(--paper);
+  font-size:13px;
+  color:var(--ink-soft);
+  cursor:pointer;
+  display:block;
+}
+.file-drop:hover{ border-color:var(--blue); }
+.file-drop input{ display:none; }
+.file-name{ margin-top:8px; font-size:12.5px; color:var(--blue-deep); font-family:'JetBrains Mono',monospace; }
+
+.hint{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
+
+.submit-row{ text-align:center; margin-top:38px; }
+button.submit{
+  font-family:'Shippori Mincho', serif;
+  font-size:16px; letter-spacing:0.06em;
+  padding:16px 48px;
+  background:var(--blue-deep);
+  color:#fff; border:none; border-radius:100px;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+button.submit:hover{ background:var(--blue); transform:translateY(-1px); }
+button.submit:disabled{ opacity:.6; cursor:default; transform:none; }
+.submit-status{ margin-top:14px; font-size:13px; color:var(--ink-soft); min-height:18px; }
+
+.thanks{
+  text-align:center;
+  padding:64px 32px;
+  background:var(--blue-pale);
+  border-radius:var(--radius);
+  display:none;
+}
+.thanks.show{ display:block; }
+.thanks .display{ font-size:24px; margin-bottom:12px; }
+.thanks p{ color:var(--ink-soft); font-size:14px; }
+.thanks .btn{ margin-top:26px; border-color:var(--blue-deep); color:var(--blue-deep); }
+.thanks .btn:hover{ background:var(--blue-deep); color:#fff; }
+
+/* ---------- footer ---------- */
+footer{
+  background:var(--navy-deep);
+  color:#EAF0FF;
+  text-align:center;
+  padding:56px 24px 44px;
+}
+footer .knot{ margin-bottom:18px; }
+footer .display{ font-size:18px; margin-bottom:10px; }
+footer p{ font-size:12.5px; color:#93A6D6; margin:4px 0; }
+
+::selection{ background:var(--blue); color:#fff; }
+
+
+@media (max-width:600px){
+  .hero-row img{ width:220px; height:150px; }
+  .film-row img{ width:190px; height:250px; }
+  .info-row{ grid-template-columns:1fr; gap:4px; }
+}
